@@ -1,30 +1,23 @@
-import React from "react";
-import Dashboard from "./components/Dashboard";
-import RepoSearch from "./components/RepoSearch";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
+import RepoSearch from "./pages/RepoSearch";
+import AIInsights from "./pages/AIInsights";
+import CommitsChart from "./pages/CommitsChart";
 
 function App() {
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold">AI GitHub Analyzer</h1>
-      <RepoSearch />
-      <Dashboard />
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/repos" element={<RepoSearch />} />
+          <Route path="/insights" element={<AIInsights />} />
+          <Route path="/commits" element={<CommitsChart />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
-let deferredPrompt;
-
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  const installBtn = document.getElementById("installBtn");
-  if (installBtn) installBtn.style.display = "block";
-
-  installBtn.addEventListener("click", () => {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(() => {
-      deferredPrompt = null;
-    });
-  });
-});
 
 export default App;

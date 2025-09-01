@@ -6,5 +6,5 @@ export async function getAIInsights(repoData, commits, languages) {
     commits,
     languages,
   });
-  return data; // AI summary / suggestions
+  return data;
 }
